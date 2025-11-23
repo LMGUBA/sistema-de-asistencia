@@ -54,22 +54,25 @@ async function startServer() {
         await initializeDatabase();
         await insertTestData();
 
-        // Iniciar servidor
-        app.listen(PORT, () => {
-            console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-            console.log('📊 Dashboard de Trabajo Remoto');
-            console.log('👤 Usuarios de prueba:');
-            console.log('   Admin: admin / password');
-            console.log('   Empleado: juan.perez / password');
-            console.log('   Empleado: maria.gonzalez / password');
-            console.log('   Empleado: carlos.rodriguez / password');
-        });
+        if (!process.env.VERCEL) {
+            app.listen(PORT, () => {
+                console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+                console.log('📊 Dashboard de Trabajo Remoto');
+                console.log('👤 Usuarios de prueba:');
+                console.log('   Admin: admin / password');
+                console.log('   Empleado: juan.perez / password');
+                console.log('   Empleado: maria.gonzalez / password');
+                console.log('   Empleado: carlos.rodriguez / password');
+            });
+        }
     } catch (error) {
         console.error('Error al inicializar la aplicación:', error);
         process.exit(1);
     }
 }
 
-startServer();
+if (!process.env.VERCEL) {
+    startServer();
+}
 
 module.exports = app;
