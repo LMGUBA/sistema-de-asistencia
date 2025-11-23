@@ -27,7 +27,7 @@ async function initializeDatabase() {
 // Function to insert admin user (if not exists)
 async function insertTestData() {
     try {
-        const bcrypt = require('bcrypt');
+        const bcrypt = require('bcryptjs');
 
         // Check if admin already exists
         const { data: existingAdmin, error: checkError } = await supabase
